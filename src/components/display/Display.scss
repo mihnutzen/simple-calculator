@@ -1,0 +1,10 @@
+@import 'src/styles/variables';
+
+.Display {
+  padding-right: 20px;
+  height: $height;
+  line-height: $height;
+  background: #666;
+  text-align: right;
+  font-size: 8vh;
+}

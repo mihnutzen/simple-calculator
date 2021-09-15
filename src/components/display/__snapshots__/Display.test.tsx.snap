@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The Display component should render correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="Display"
+  >
+    0
+  </div>
+</DocumentFragment>
+`;

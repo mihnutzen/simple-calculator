@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The Actions component should render correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="Actions"
+  >
+    <button
+      title="Clear (Esc)"
+    >
+      AC
+    </button>
+    <button
+      title="Negate the displayed value"
+    >
+      ±
+    </button>
+    <button
+      title="Percent (or press %)"
+    >
+      %
+    </button>
+  </div>
+</DocumentFragment>
+`;

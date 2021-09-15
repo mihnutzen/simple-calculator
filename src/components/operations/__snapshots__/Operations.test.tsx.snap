@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The Operations component should render correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="Operations"
+  >
+    <button
+      class=""
+      title="Divide (or press /)"
+    >
+      /
+    </button>
+    <button
+      class=""
+      title="Multiply (or press *)"
+    >
+      *
+    </button>
+    <button
+      class=""
+      title="Subtract (or press -)"
+    >
+      -
+    </button>
+    <button
+      class="selected"
+      title="Add (or press +)"
+    >
+      +
+    </button>
+    <button
+      class=""
+      title="Equal (or press Return)"
+    >
+      =
+    </button>
+  </div>
+</DocumentFragment>
+`;

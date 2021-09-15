@@ -1,3 +1,15 @@
+Equal Experts Test - Simple calculator
+
+The current application is my take on a simple calculator. Its not complete and the following is only the foundation.
+
+following is a list of todos (not final)
+- add percent calculation
+- add support for keypress
+- add support for clearing current (C) vs all (AC)
+- add support for large numbers being displayed
+- add errors for large numbers
+- add support for clicking equal multiple times in a row
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -1,0 +1,16 @@
+@import 'src/styles/variables';
+
+.Actions {
+  display: grid;
+  grid-template-columns: repeat($numbers-grid-columns, 1fr);
+  grid-template-rows: repeat(1, $height);
+
+  border-bottom: 1px solid #666;
+  grid-gap: 1px;
+  background-color: #666;
+
+  > button {
+    background: #999;
+    line-height: $height;
+  }
+}

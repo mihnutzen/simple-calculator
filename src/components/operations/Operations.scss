@@ -1,0 +1,19 @@
+@import 'src/styles/variables';
+
+.Operations {
+  display: grid;
+  grid-template-columns: 1;
+  grid-template-rows: repeat($operations-grid-rows, $height);
+
+  grid-gap: 1px;
+  background-color: #666;
+
+  > button {
+    background: $equal-blue;
+    line-height: $height;
+
+    &.selected {
+      border: 2px solid black;
+    }
+  }
+}
