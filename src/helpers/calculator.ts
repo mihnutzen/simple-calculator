@@ -55,3 +55,5 @@ export const getCalculation = (val1: string, val2: string, op: OperationsList | 
 
   return val2;
 }
+
+export const isSimple = (op: OperationsList) => [OperationsList.Addition, OperationsList.Subtract, OperationsList.Equal].includes(op);

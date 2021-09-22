@@ -2,7 +2,7 @@ import React from 'react';
 
 import { NumOpt, ActionsList, OperationsList } from '../types/calculator';
 
-import { getCurrentValue, getNegated, getDisplayValue, getCalculation } from '../helpers/calculator';
+import { getCurrentValue, getNegated, getDisplayValue, getCalculation, isSimple } from '../helpers/calculator';
 
 import Numbers from '../components/numbers/Numbers';
 import Operations from '../components/operations/Operations';
@@ -15,6 +15,7 @@ const Calculator = () => {
   const [operation, setOperation] = React.useState<OperationsList>();
   const [currentValue, setCurrentValue] = React.useState<string>('0');
   const [prevValue, setPrevValue] = React.useState<string>('0');
+  const [cached, setCache] = React.useState<[string, OperationsList]>();
 
   const handleClear = () => {
     setCurrentValue('0');
@@ -32,7 +33,15 @@ const Calculator = () => {
     let result = currentValue;
 
     if (operation) {
-      result = getCalculation(currentValue, prevValue, operation);
+      if (isSimple(operation) && !isSimple(op)) {
+        setCache([prevValue, operation]);
+      } else if (isSimple(op) && cached && cached.length) {
+        result = getCalculation(currentValue, prevValue, operation);
+        result = getCalculation(result, cached[0], cached[1]);
+        setCache(undefined);
+      } else {
+        result = getCalculation(currentValue, prevValue, operation);
+      }
     }
 
     if (op !== OperationsList.Equal) {
