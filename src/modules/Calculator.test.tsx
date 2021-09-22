@@ -41,4 +41,22 @@ describe('The Calculator component', () => {
 
     expect(displayElement).toBeInTheDocument();
   });
+
+  it('should display calculation result when using different operations', () => {
+    render(<Calculator />);
+
+    fireEvent.click(screen.getByRole('button', { name: /1/ }));
+    fireEvent.click(screen.getByRole('button', { name: /0/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Add (or press +)' }));
+    fireEvent.click(screen.getByRole('button', { name: /2/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Multiply (or press *)' }));
+    fireEvent.click(screen.getByRole('button', { name: /2/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Add (or press +)' }));
+    fireEvent.click(screen.getByRole('button', { name: /2/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Equal (or press Return)' }));
+
+    const displayElement = screen.getByText(/16/);
+
+    expect(displayElement).toBeInTheDocument();
+  });
 });

@@ -140,3 +140,36 @@ describe('getCalculation', () => {
     expect(helpers.getSubtraction).toHaveBeenCalledWith(1, 2);
   });
 });
+
+
+describe('isSimple', () => {
+  const cases = [
+    {
+      test: OperationsList.Addition,
+      expected: true
+    },
+    {
+      test: OperationsList.Subtract,
+      expected: true
+    },
+    {
+      test: OperationsList.Equal,
+      expected: true
+    },
+    {
+      test: OperationsList.Multiply,
+      expected: false
+    },
+    {
+      test: OperationsList.Divide,
+      expected: false
+    }
+  ];
+
+  cases.forEach(({test, expected}) => {
+    it(`should return ${expected} for ${test}`, () => {
+      const result = helpers.isSimple(test);
+      expect(result).toEqual((expected));
+    });
+  });
+});
