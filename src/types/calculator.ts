@@ -14,6 +14,14 @@ export enum OperationsSigns {
   Equal = '='
 }
 
+export enum OperationsSigns2 {
+  divide = '/',
+  multiply = '*',
+  subtract = '-',
+  addition = '+',
+  equal = '='
+}
+
 export enum ActionsList {
   Clear = 'clear',
   Negate = 'negate',

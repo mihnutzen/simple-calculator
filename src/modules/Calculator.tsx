@@ -2,7 +2,7 @@ import React from 'react';
 
 import { NumOpt, ActionsList, OperationsList } from '../types/calculator';
 
-import { getCurrentValue, getNegated, getDisplayValue, getCalculation } from '../helpers/calculator';
+import { getCurrentValue, getNegated, isOperationAtEnd, getResult } from '../helpers/calculator';
 
 import Numbers from '../components/numbers/Numbers';
 import Operations from '../components/operations/Operations';
@@ -14,36 +14,38 @@ import './Calculator.scss';
 const Calculator = () => {
   const [operation, setOperation] = React.useState<OperationsList>();
   const [currentValue, setCurrentValue] = React.useState<string>('0');
-  const [prevValue, setPrevValue] = React.useState<string>('0');
+  const [calculation, setCalculation] = React.useState<any[]>(['0']);
 
   const handleClear = () => {
     setCurrentValue('0');
-    setPrevValue('0');
+    setCalculation(['0']);
     setOperation(undefined);
   }
 
   const handleNegate = () => {
     const negated = getNegated(currentValue);
 
+    if (isOperationAtEnd(calculation)) {
+      const op = calculation.pop();
+      calculation.pop();
+      setCalculation([...calculation, negated, op]);
+    } else {
+      calculation.pop();
+      setCalculation([...calculation, negated]);
+    }
+
+
     setCurrentValue(negated);
   }
 
   const handleOperation = (op: OperationsList) => {
-    let result = currentValue;
-
-    if (operation) {
-      result = getCalculation(currentValue, prevValue, operation);
+    if (isOperationAtEnd(calculation)) {
+      calculation.pop();
     }
 
-    if (op !== OperationsList.Equal) {
-      setOperation(op);
-      setPrevValue(result);
-      setCurrentValue('0');
-    } else {
-      setOperation(undefined);
-      setPrevValue('0');
-      setCurrentValue(result);
-    }
+    setCalculation([...calculation, op]);
+    setOperation(op);
+    setCurrentValue(getResult(calculation));
   }
 
   const handleAction = (act: ActionsList) => {
@@ -57,14 +59,20 @@ const Calculator = () => {
   }
 
   const handleNumber = (number: NumOpt) => {
-    const newValue = getCurrentValue(currentValue, number);
+    let newValue;
+    if (isOperationAtEnd(calculation)) {
+      newValue = getCurrentValue('0', number);
+    } else {
+      newValue = getCurrentValue(calculation.pop(), number);
+    }
 
     setCurrentValue(newValue);
+    setCalculation([...calculation, newValue]);
   }
 
   return (
     <div className="Calculator">
-      <Display value={getDisplayValue(prevValue, currentValue)} />
+      <Display value={currentValue} />
       <Actions onAction={handleAction} />
       <Operations onOperation={handleOperation} selectedOperation={operation} />
       <Numbers onNumber={handleNumber} />

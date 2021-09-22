@@ -1,4 +1,6 @@
-import { OperationsList, NumOpt } from '../types/calculator';
+import { evaluate } from 'mathjs'
+
+import { OperationsList, NumOpt, OperationsSigns2 } from '../types/calculator';
 
 import * as self from './calculator';
 
@@ -19,14 +21,6 @@ export const getCurrentValue = (current: string, number: NumOpt) => {
   return current + number;
 }
 
-export const getDisplayValue = (prev: string, current: string) => {
-  if (prev !== '0' && current === '0') {
-    return prev;
-  }
-
-  return current;
-}
-
 export const getNegated = (val: string) => {
   if (val[0] === '0' && val.length < 3) {
     return val[0];
@@ -35,23 +29,28 @@ export const getNegated = (val: string) => {
   return val[0] === '-' ? val.substring(1) : '-' + val;
 }
 
-export const getAddition = (val1: number, val2: number) => val1 + val2;
-export const getDivision = (val1: number, val2: number) => val2 / val1;
-export const getMultiplication = (val1: number, val2: number) => val1 * val2;
-export const getSubtraction = (val1: number, val2: number) => val2 - val1;
+export const getIsPriority = (op: OperationsList) => [OperationsList.Multiply, OperationsList.Divide].includes(op);
 
-export const getCalculation = (val1: string, val2: string, op: OperationsList | undefined) => {
-  const operationsMap = {
-    [OperationsList.Addition]: self.getAddition,
-    [OperationsList.Divide]: self.getDivision,
-    [OperationsList.Multiply]: self.getMultiplication,
-    [OperationsList.Subtract]: self.getSubtraction,
-    [OperationsList.Equal]: () => {},
-  }
+export const isOperationAtEnd = (calculation: any[]) => {
+  return isOperation(calculation[calculation.length - 1]);
+}
 
-  if (op) {
-    return operationsMap[op](parseFloat(val1), parseFloat(val2)) + '';
-  }
+export const isOperation = (op: OperationsList) => {
+  return Object.values(OperationsList).includes(op);
+}
 
-  return val2;
+export const getSign = (op: OperationsList) => {
+  return OperationsSigns2[op];
+}
+
+export const getResult = (calculation: any[]) => {
+  const parsedCalculation = calculation.reduce((acc, step) => {
+    if (isOperation(step)) {
+      return acc + ' ' + getSign(step);
+    }
+
+    return acc + ' ' + step;
+  }, '');
+
+  return evaluate(parsedCalculation);
 }
