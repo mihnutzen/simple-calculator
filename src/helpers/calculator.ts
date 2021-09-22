@@ -2,9 +2,6 @@ import { evaluate } from 'mathjs'
 
 import { OperationsList, NumOpt, OperationsSigns2 } from '../types/calculator';
 
-import * as self from './calculator';
-
-
 export const getIsSelectedOperation = (op: OperationsList, selection: OperationsList | undefined) => {
   return op === selection && selection !== OperationsList.Equal;
 }
