@@ -12,7 +12,7 @@ function App() {
         Equal Experts Calculator
       </header>
       <main>
-        <Calculator />
+      <Calculator />
       </main>
     </div>
   );

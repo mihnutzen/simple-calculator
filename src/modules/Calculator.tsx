@@ -1,8 +1,16 @@
 import React from 'react';
 
-import { NumOpt, ActionsList, OperationsList } from '../types/calculator';
+import { NumOpt, ActionsList, OperationsList, KeysToOp, OperationsSigns } from '../types/calculator';
 
-import { getCurrentValue, getNegated, getDisplayValue, getCalculation, isSimple } from '../helpers/calculator';
+import {
+  getCurrentValue,
+  getNegated,
+  getDisplayValue,
+  getCalculation,
+  isSimple,
+} from '../helpers/calculator';
+
+import { useKeyPress } from '../hook/hooks';
 
 import Numbers from '../components/numbers/Numbers';
 import Operations from '../components/operations/Operations';
@@ -53,6 +61,12 @@ const Calculator = () => {
       setPrevValue('0');
       setCurrentValue(result);
     }
+  };
+
+  const handleKeysOperation = (key: OperationsSigns) => {
+    const op = KeysToOp[key] as OperationsList;
+
+    handleOperation(op);
   }
 
   const handleAction = (act: ActionsList) => {
@@ -63,13 +77,16 @@ const Calculator = () => {
     }
 
     actionsMap[act]();
-  }
+  };
 
   const handleNumber = (number: NumOpt) => {
     const newValue = getCurrentValue(currentValue, number);
 
     setCurrentValue(newValue);
-  }
+  };
+
+  useKeyPress(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'], handleNumber);
+  useKeyPress(['+', '-', '=', 'Enter', '*', '/'], handleKeysOperation);
 
   return (
     <div className="Calculator">

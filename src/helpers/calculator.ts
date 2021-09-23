@@ -1,4 +1,4 @@
-import { OperationsList, NumOpt } from '../types/calculator';
+import { OperationsList, NumOpt, OperationsSigns } from '../types/calculator';
 
 import * as self from './calculator';
 
@@ -57,3 +57,11 @@ export const getCalculation = (val1: string, val2: string, op: OperationsList | 
 }
 
 export const isSimple = (op: OperationsList) => [OperationsList.Addition, OperationsList.Subtract, OperationsList.Equal].includes(op);
+
+export const isNumber = (val: string) => {
+  return Number.isInteger(parseInt(val));
+}
+
+export const isOperation = (op: string) => {
+  return Object.values(OperationsSigns).includes(op as OperationsSigns);
+}

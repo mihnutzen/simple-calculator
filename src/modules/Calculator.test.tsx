@@ -59,4 +59,18 @@ describe('The Calculator component', () => {
 
     expect(displayElement).toBeInTheDocument();
   });
+
+  it('should display calculation result when using keyboard', () => {
+    render(<Calculator />);
+
+    fireEvent.keyUp(document, {key: '2', code: 'Digit2'})
+    fireEvent.keyUp(document, {key: '3', code: 'Digit3'})
+    fireEvent.keyUp(document, {key: '*', code: 'Digit8', shiftKey: true })
+    fireEvent.keyUp(document, {key: '2', code: 'Digit2'})
+    fireEvent.keyUp(document, {key: '=', code: 'Equal'})
+
+    const displayElement = screen.getByText(/46/);
+
+    expect(displayElement).toBeInTheDocument();
+  });
 });

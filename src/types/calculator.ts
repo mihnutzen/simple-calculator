@@ -14,6 +14,15 @@ export enum OperationsSigns {
   Equal = '='
 }
 
+export const KeysToOp = {
+  '/': 'divide',
+  '*': 'multiply',
+  '=': 'equal',
+  'Enter': 'equal',
+  '+': 'addition',
+  '-': 'subtract'
+};
+
 export enum ActionsList {
   Clear = 'clear',
   Negate = 'negate',
